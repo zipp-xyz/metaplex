@@ -38,7 +38,11 @@ export const AuctionRenderCard = (props: AuctionCard) => {
           </span>
         </div>
         <div className={'art-content-wrapper'}>
-          <Link style={{ cursor: 'default' }} to={null}>
+          <Link
+            style={{ cursor: 'default' }}
+            onClick={e => e.preventDefault()}
+            to="/"
+          >
             <ArtContent
               className="auction-image no-events"
               preview={false}

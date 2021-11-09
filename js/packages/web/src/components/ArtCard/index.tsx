@@ -82,7 +82,11 @@ export const ArtCard = (props: ArtCardProps) => {
               X
             </Button>
           )}
-          <Link style={{ cursor: 'default' }} to={null}>
+          <Link
+            style={{ cursor: 'default' }}
+            onClick={e => e.preventDefault()}
+            to="/"
+          >
             <ArtContent
               pubkey={pubkey}
               uri={image}
