@@ -34,7 +34,7 @@ import {
   StringPublicKey,
   WRAPPED_SOL_MINT,
   getAssetCostToStore,
-  LAMPORT_MULTIPLIER
+  LAMPORT_MULTIPLIER,
 } from '@oyster/common';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Connection } from '@solana/web3.js';
@@ -64,7 +64,7 @@ export const ArtCreateView = () => {
   const { width } = useWindowDimensions();
   const [nftCreateProgress, setNFTcreateProgress] = useState<number>(0);
 
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState<number>(1);
   const [stepsVisible, setStepsVisible] = useState<boolean>(true);
   const [isMinting, setMinting] = useState<boolean>(false);
   const [nft, setNft] =
@@ -82,7 +82,7 @@ export const ArtCreateView = () => {
     creators: [],
     properties: {
       files: [],
-      category: MetadataCategory.Image,
+      category: MetadataCategory.Audio,
     },
   });
 
@@ -155,7 +155,7 @@ export const ArtCreateView = () => {
                 maxWidth: '100%',
               }}
             >
-              <Step title="Category" />
+              {/* <Step title="Category" /> */}
               <Step title="Upload" />
               <Step title="Info" />
               <Step title="Royalties" />
@@ -164,7 +164,7 @@ export const ArtCreateView = () => {
           </Col>
         )}
         <Col span={24} {...(stepsVisible ? { md: 20 } : { md: 24 })}>
-          {step === 0 && (
+          {/* {step === 0 && (
             <CategoryStep
               confirm={(category: MetadataCategory) => {
                 setAttributes({
@@ -177,8 +177,8 @@ export const ArtCreateView = () => {
                 gotoStep(1);
               }}
             />
-          )}
-          {step === 1 && (
+          )} */}
+          {step === 0 && (
             <UploadStep
               attributes={attributes}
               setAttributes={setAttributes}
@@ -188,7 +188,7 @@ export const ArtCreateView = () => {
             />
           )}
 
-          {step === 2 && (
+          {step === 1 && (
             <InfoStep
               attributes={attributes}
               files={files}
@@ -196,14 +196,14 @@ export const ArtCreateView = () => {
               confirm={() => gotoStep(3)}
             />
           )}
-          {step === 3 && (
+          {step === 2 && (
             <RoyaltiesStep
               attributes={attributes}
               confirm={() => gotoStep(4)}
               setAttributes={setAttributes}
             />
           )}
-          {step === 4 && (
+          {step === 3 && (
             <LaunchStep
               attributes={attributes}
               files={files}
@@ -211,7 +211,7 @@ export const ArtCreateView = () => {
               connection={connection}
             />
           )}
-          {step === 5 && (
+          {step === 4 && (
             <WaitingStep
               mint={mint}
               minting={isMinting}
@@ -219,7 +219,7 @@ export const ArtCreateView = () => {
               confirm={() => gotoStep(6)}
             />
           )}
-          {0 < step && step < 5 && (
+          {0 < step && step < 4 && (
             <div style={{ margin: 'auto', width: 'fit-content' }}>
               <Button onClick={() => gotoStep(step - 1)}>Back</Button>
             </div>
@@ -233,86 +233,86 @@ export const ArtCreateView = () => {
   );
 };
 
-const CategoryStep = (props: {
-  confirm: (category: MetadataCategory) => void;
-}) => {
-  const { width } = useWindowDimensions();
-  return (
-    <>
-      <Row className="call-to-action">
-        <h2>Create a new item</h2>
-        <p>
-          First time creating on Metaplex?{' '}
-          <a href="#">Read our creators’ guide.</a>
-        </p>
-      </Row>
-      <Row justify={width < 768 ? 'center' : 'start'}>
-        <Col>
-          <Row>
-            <Button
-              className="type-btn"
-              size="large"
-              onClick={() => props.confirm(MetadataCategory.Image)}
-            >
-              <div>
-                <div>Image</div>
-                <div className="type-btn-description">JPG, PNG, GIF</div>
-              </div>
-            </Button>
-          </Row>
-          <Row>
-            <Button
-              className="type-btn"
-              size="large"
-              onClick={() => props.confirm(MetadataCategory.Video)}
-            >
-              <div>
-                <div>Video</div>
-                <div className="type-btn-description">MP4, MOV</div>
-              </div>
-            </Button>
-          </Row>
-          <Row>
-            <Button
-              className="type-btn"
-              size="large"
-              onClick={() => props.confirm(MetadataCategory.Audio)}
-            >
-              <div>
-                <div>Audio</div>
-                <div className="type-btn-description">MP3, WAV, FLAC</div>
-              </div>
-            </Button>
-          </Row>
-          <Row>
-            <Button
-              className="type-btn"
-              size="large"
-              onClick={() => props.confirm(MetadataCategory.VR)}
-            >
-              <div>
-                <div>AR/3D</div>
-                <div className="type-btn-description">GLB</div>
-              </div>
-            </Button>
-          </Row>
-          <Row>
-            <Button
-              className="type-btn"
-              size="large"
-              onClick={() => props.confirm(MetadataCategory.HTML)}
-            >
-              <div>
-                <div>HTML Asset</div>
-                <div className="type-btn-description">HTML</div>
-              </div>
-            </Button>
-          </Row>
-        </Col>
-      </Row>
-    </>
-  );
-};
+// const CategoryStep = (props: {
+//   confirm: (category: MetadataCategory) => void;
+// }) => {
+//   const { width } = useWindowDimensions();
+//   return (
+//     <>
+//       <Row className="call-to-action">
+//         <h2>Create a new item</h2>
+//         <p>
+//           First time creating on Metaplex?{' '}
+//           <a href="#">Read our creators’ guide.</a>
+//         </p>
+//       </Row>
+//       <Row justify={width < 768 ? 'center' : 'start'}>
+//         <Col>
+//           <Row>
+//             <Button
+//               className="type-btn"
+//               size="large"
+//               onClick={() => props.confirm(MetadataCategory.Image)}
+//             >
+//               <div>
+//                 <div>Image</div>
+//                 <div className="type-btn-description">JPG, PNG, GIF</div>
+//               </div>
+//             </Button>
+//           </Row>
+//           <Row>
+//             <Button
+//               className="type-btn"
+//               size="large"
+//               onClick={() => props.confirm(MetadataCategory.Video)}
+//             >
+//               <div>
+//                 <div>Video</div>
+//                 <div className="type-btn-description">MP4, MOV</div>
+//               </div>
+//             </Button>
+//           </Row>
+//           <Row>
+//             <Button
+//               className="type-btn"
+//               size="large"
+//               onClick={() => props.confirm(MetadataCategory.Audio)}
+//             >
+//               <div>
+//                 <div>Audio</div>
+//                 <div className="type-btn-description">MP3, WAV, FLAC</div>
+//               </div>
+//             </Button>
+//           </Row>
+//           <Row>
+//             <Button
+//               className="type-btn"
+//               size="large"
+//               onClick={() => props.confirm(MetadataCategory.VR)}
+//             >
+//               <div>
+//                 <div>AR/3D</div>
+//                 <div className="type-btn-description">GLB</div>
+//               </div>
+//             </Button>
+//           </Row>
+//           <Row>
+//             <Button
+//               className="type-btn"
+//               size="large"
+//               onClick={() => props.confirm(MetadataCategory.HTML)}
+//             >
+//               <div>
+//                 <div>HTML Asset</div>
+//                 <div className="type-btn-description">HTML</div>
+//               </div>
+//             </Button>
+//           </Row>
+//         </Col>
+//       </Row>
+//     </>
+//   );
+// };
 
 const UploadStep = (props: {
   attributes: IMetadataExtension;
@@ -378,7 +378,7 @@ const UploadStep = (props: {
   return (
     <>
       <Row className="call-to-action">
-        <h2>Now, let's upload your creation</h2>
+        <h2>Let&apos;s upload your creation</h2>
         <p style={{ fontSize: '1.2rem' }}>
           Your file will be uploaded to the decentralized web via Arweave.
           Depending on file type, can take up to 1 minute. Arweave is a new type
@@ -387,7 +387,10 @@ const UploadStep = (props: {
           very first time.
         </p>
       </Row>
-      <Row className="content-action">
+      <Row
+        className="content-action"
+        style={{ marginBottom: 5, marginTop: 30 }}
+      >
         <h3>Upload a cover image (PNG, JPG, GIF, SVG)</h3>
         <Dragger
           accept=".png,.jpg,.gif,.mp4,.svg"
@@ -428,7 +431,7 @@ const UploadStep = (props: {
           {coverArtError ? (
             <Text type="danger">{coverArtError}</Text>
           ) : (
-            <p className="ant-upload-text" style={{ color: '#6d6d6d' }}>
+            <p className="ant-upload-text" style={{ color: '#bebebe' }}>
               Drag and drop, or click to browse
             </p>
           )}
@@ -465,7 +468,7 @@ const UploadStep = (props: {
             <div className="ant-upload-drag-icon">
               <h3 style={{ fontWeight: 700 }}>Upload your creation</h3>
             </div>
-            <p className="ant-upload-text" style={{ color: '#6d6d6d' }}>
+            <p className="ant-upload-text" style={{ color: '#bebebe' }}>
               Drag and drop, or click to browse
             </p>
           </Dragger>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardProps, Button, Badge } from 'antd';
 import { MetadataCategory, StringPublicKey } from '@oyster/common';
 import { ArtContent } from './../ArtContent';
@@ -81,15 +82,17 @@ export const ArtCard = (props: ArtCardProps) => {
               X
             </Button>
           )}
-          <ArtContent
-            pubkey={pubkey}
-            uri={image}
-            animationURL={animationURL}
-            category={category}
-            preview={preview}
-            height={height}
-            width={width}
-          />
+          <Link style={{ cursor: 'default' }} to={null}>
+            <ArtContent
+              pubkey={pubkey}
+              uri={image}
+              animationURL={animationURL}
+              category={category}
+              preview={preview}
+              height={height}
+              width={width}
+            />
+          </Link>
         </>
       }
       {...rest}

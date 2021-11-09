@@ -78,21 +78,38 @@ section#main-layout.ant-layout {
     left: 0;
     top: 510px;
     background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, @black-100 100%);
-    display: none;
+    display: inline-block;
+  }
+
+  #bg-overlay-1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-image: radial-gradient(ellipse at top right, rgba(63, 211, 184, 0) 10%, rgba(63, 211, 184, 1) 100%);
+  }
+
+  #bg-overlay-2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-image: radial-gradient(ellipse at bottom left,rgba(215, 152, 255, 0) 40%, rgba(215, 152, 255, 1) 100%);
   }
 
   span#main-bg {
-    display: none;
+    display: inline-block;
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     height: 708px;
-    background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, @black-100 100%);;
+    background: url('https://stefan-kovac-random.s3.us-east-2.amazonaws.com/header-background.jpg');
+    // background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, @black-100 100%);;
     background-position: top left !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
-    filter: blur(220px);
+    // filter: blur(220px);
     clip-path: inset(0 0 0 0);
   }
 }

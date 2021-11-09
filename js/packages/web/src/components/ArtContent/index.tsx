@@ -1,5 +1,4 @@
 import React, { Ref, useCallback, useEffect, useState } from 'react';
-import { Image } from 'antd';
 import { MetadataCategory, MetadataFile, pubkeyToString } from '@oyster/common';
 import { MeshViewer } from '../MeshViewer';
 import { ThreeDots } from '../MyLoader';
@@ -7,6 +6,8 @@ import { useCachedImage, useExtendedArt } from '../../hooks';
 import { Stream, StreamPlayerApi } from '@cloudflare/stream-react';
 import { PublicKey } from '@solana/web3.js';
 import { getLast } from '../../utils/utils';
+import { Flex, Image } from '@chakra-ui/react';
+import { AudioPlayer } from '../../components/AudioPlayer';
 
 const MeshArtContent = ({
   uri,
@@ -46,28 +47,40 @@ export const CachedImageContent = ({
   className,
   preview,
   style,
+  children,
 }: {
   uri?: string;
   className?: string;
   preview?: boolean;
   style?: React.CSSProperties;
+  children?: any;
 }) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const { cachedBlob } = useCachedImage(uri || '');
 
   return (
-    <Image
-      src={cachedBlob}
-      preview={preview}
-      wrapperClassName={className}
-      loading="lazy"
-      wrapperStyle={{ ...style }}
-      onLoad={e => {
-        setLoaded(true);
-      }}
-      placeholder={<ThreeDots />}
-      {...(loaded ? {} : { height: 200 })}
-    />
+    <Flex position="relative">
+      <Image
+        src={cachedBlob}
+        position="relative"
+        onLoad={e => {
+          setLoaded(true);
+        }}
+        fallbackSrc="https://stefan-kovac-random.s3.us-east-2.amazonaws.com/fallback-image.png"
+      />
+      <Flex
+        position="absolute"
+        justifyContent="center"
+        alignItems="center"
+        top="0"
+        left="0"
+        height="100%"
+        width="100%"
+        flexDirection="column"
+      >
+        {children}
+      </Flex>
+    </Flex>
   );
 };
 
@@ -292,7 +305,11 @@ export const ArtContent = ({
         className={className}
         preview={preview}
         style={style}
-      />
+      >
+        {animationURL && (
+          <AudioPlayer audioFile={animationURL} isHovering={true} />
+        )}
+      </CachedImageContent>
     );
 
   return (
