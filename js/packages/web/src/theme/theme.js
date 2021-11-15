@@ -3,7 +3,7 @@ import colors from './colors';
 import components from './components';
 
 const config = {
-  initialColorMode: 'dark',
+  initialColorMode: 'light',
   useSystemColorMode: false,
 };
 
